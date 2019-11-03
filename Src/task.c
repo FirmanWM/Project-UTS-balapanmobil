@@ -31,6 +31,7 @@ void task_init(void){
 	second=0;
 	minute=0;
 	LCD_init();
+	Stopwatch_init();
 }
 
 void task_mulai(void){
@@ -89,14 +90,20 @@ void task_mulai(void){
 			milisecondA[lap_1] = miliSecond;
 			secondA[lap_1] = second;
 			minuteA[lap_1] = minute;
-			task_display(stopwatchEna);
+			task_display(1);
+			LCD_SetCursor(4, 1);
+			LCD_printnum(milisecondA[lap_1]); LCD_print(" :");
+			LCD_printnum(secondA[lap_1]);
+			for(uint8_t i=1; i<=4 ; i++){
+				task_LED(i, 1);
+			}
 		}
 		///sensor2
 		if (HAL_GPIO_ReadPin(sens2_GPIO_Port, sens2_Pin)==GPIO_PIN_RESET){
 			if(timeout4++ > timeoutVal){
 				stopwatchEna=0;
 				LCD_clear(0, 0);
-				task_errordis(1, "Seomsor 2 Error");
+				task_errordis(1, "Sensor 2 Error");
 			}
 			else
 				bouncing4 = (bouncing4<<1)|1;
@@ -113,6 +120,9 @@ void task_mulai(void){
 			secondB[lap_2] = second;
 			minuteB[lap_2] = minute;
 			task_display(stopwatchEna);
+			for(uint8_t i=1;i<=4;i++){
+				task_LED(i, 2);
+			}
 		}
 		//sensor3
 		if (HAL_GPIO_ReadPin(sens3_GPIO_Port, sens3_Pin)==GPIO_PIN_RESET){
@@ -136,6 +146,9 @@ void task_mulai(void){
 			secondC[lap_3] = second;
 			minuteC[lap_3] = minute;
 			task_display(stopwatchEna);
+			for(uint8_t i=1;i<=4;i++){
+				task_LED(i, 3);
+			}
 		}
 	}
 }
@@ -152,9 +165,22 @@ void task_displayreset(void){
 	}
 }
 
-void task_display(_Bool state){
-	if (state){
-
+void task_display(uint8_t sesi){
+	switch (sesi) {
+		case 1:
+			//format LCD1
+			LCD_clear(0, 0);
+			LCD_SetCursor(0,1);
+			LCD_print("A");
+			LCD_SetCursor(0,2);
+			LCD_print("B");
+			LCD_SetCursor(0,3);
+			LCD_print("C");
+			LCD_SetCursor(4,0);
+			LCD_print("LAP 1");
+			break;
+		default:
+			break;
 	}
 }
 
@@ -174,21 +200,21 @@ void task_LED(uint8_t Dled, uint8_t slot){
 		HAL_GPIO_WritePin(buzzer_GPIO_Port, buzzer_Pin, GPIO_PIN_SET);
 		break;
 	case 2:
-		HAL_GPIO_WritePin(D0_LAP_GPIO_Port, D0_LAP_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(D0_LAP_GPIO_Port, D0_LAP_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(D1_LAP_GPIO_Port, D1_LAP_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(D2_LAP_GPIO_Port, D2_LAP_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(buzzer_GPIO_Port, buzzer_Pin, GPIO_PIN_SET);
 		break;
 	case 3:
-		HAL_GPIO_WritePin(D0_LAP_GPIO_Port, D0_LAP_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(D1_LAP_GPIO_Port, D1_LAP_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(D0_LAP_GPIO_Port, D0_LAP_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(D1_LAP_GPIO_Port, D1_LAP_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(D2_LAP_GPIO_Port, D2_LAP_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(buzzer_GPIO_Port, buzzer_Pin, GPIO_PIN_SET);
 		break;
 	case 4:
-		HAL_GPIO_WritePin(D0_LAP_GPIO_Port, D0_LAP_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(D1_LAP_GPIO_Port, D1_LAP_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(D2_LAP_GPIO_Port, D2_LAP_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(D0_LAP_GPIO_Port, D0_LAP_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(D1_LAP_GPIO_Port, D1_LAP_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(D2_LAP_GPIO_Port, D2_LAP_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(buzzer_GPIO_Port, buzzer_Pin, GPIO_PIN_RESET);
 		break;
 	}

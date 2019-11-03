@@ -23,5 +23,6 @@
 "Src/system_stm32f1xx.o"
 "Src/task.o"
 "Src/timer.o"
+"Src/uart.o"
 "Src/usart.o"
 "Startup/startup_stm32f103c8tx.o"

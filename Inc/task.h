@@ -11,7 +11,7 @@
 void task_init(void);
 void task_mulai(void);
 void task_errordis(_Bool state, char *msg);
-void task_display(_Bool state);
+void task_display(uint8_t sesi);
 void task_displayreset(void);
 void task_LED(uint8_t Dled, uint8_t slot);
 

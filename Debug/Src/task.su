@@ -1,6 +1,6 @@
 task.c:29:6:task_init	8	static
-task.c:36:6:task_mulai	8	static
-task.c:143:6:task_errordis	16	static
-task.c:148:6:task_displayreset	8	static
-task.c:155:6:task_display	16	static
-task.c:161:6:task_LED	16	static
+task.c:37:6:task_mulai	16	static
+task.c:156:6:task_errordis	16	static
+task.c:161:6:task_displayreset	8	static
+task.c:168:6:task_display	16	static
+task.c:187:6:task_LED	16	static
