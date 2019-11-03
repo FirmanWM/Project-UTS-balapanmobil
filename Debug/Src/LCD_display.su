@@ -1,0 +1,7 @@
+LCD_display.c:12:6:LCD_Write4Bit	16	static
+LCD_display.c:18:6:LCD_send	16	static
+LCD_display.c:28:6:LCD_clear	16	static
+LCD_display.c:31:6:LCD_init	8	static
+LCD_display.c:38:6:LCD_print	16	static
+LCD_display.c:43:6:LCD_SetCursor	16	static
+LCD_display.c:50:6:LCD_printnum	40	static

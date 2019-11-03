@@ -1,0 +1,2 @@
+timer.c:15:6:MX_TIM2_Init	32	static
+timer.c:60:6:MX_TIM3_Init	32	static

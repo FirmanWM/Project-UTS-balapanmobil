@@ -1,0 +1,3 @@
+stopwatch.c:17:6:Stopwatch_init	4	static
+stopwatch.c:23:6:Stopwatch	4	static
+stopwatch.c:36:6:Stopwatch_Reset	16	static
