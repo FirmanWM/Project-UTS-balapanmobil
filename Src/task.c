@@ -7,16 +7,15 @@
 
 #include "main.h"
 #include "task.h"
-#include "stopwatch.h"
 #include "LCD_display2.h"
 #include "stm32f1xx_hal.h"
 #include "hardwareinit.h"
 
 #define n 5
 uint8_t lap_1, lap_2, lap_3, lap_4;
-uint16_t milisecondA[6], milisecondB[6], milisecondC[6];
-uint8_t secondA[6], secondB[6], secondC[6];
-uint8_t minuteA[6], minuteB[6], minuteC[6];
+uint16_t miliSecond, milisecondA[6], milisecondB[6], milisecondC[6];
+uint8_t second, secondA[6], secondB[6], secondC[6];
+uint8_t minute, minuteA[6], minuteB[6], minuteC[6];
 uint16_t timeout1, timeout2, timeout3, timeout4, timeout5, timeoutVal = 700;
 uint16_t resetDisplay;
 
@@ -26,16 +25,41 @@ unsigned char bouncing3=0xFF;
 unsigned char bouncing4=0xFF;
 unsigned char bouncing5=0xFF;
 
+_Bool stopwatchEna;
+
 void task_init(void){
 	miliSecond=0;
 	second=0;
 	minute=0;
 	LCD_init();
-	Stopwatch_init();
+}
+
+void Stopwatch(void){
+	if(stopwatchEna){
+		miliSecond++;
+		if(miliSecond>99){
+			miliSecond=0;
+			second++;
+			if(second>59){
+				second=0;
+				minute++;
+			}
+		}
+	}
+}
+void Stopwatch_Reset(void){
+	miliSecond=0; second=0; minute=0;
+
+	lap_1=0;	lap_2=0;	lap_3=0;
+		for(uint8_t i=0; i<5; i++){
+			milisecondA[i]=0;	milisecondB[i]=0;	milisecondC[i]=0;
+			secondA[i]=0;	secondB[i]=0;	secondC[i]=0;
+			minuteA[i]=0;	minuteB[i]=0;	minuteC[i]=0;
+		}
 }
 
 void task_mulai(void){
-	if (tekan_SS){
+	if (HAL_GPIO_ReadPin(Button_StartStop_GPIO_Port, Button_StartStop_Pin)==GPIO_PIN_RESET){
 		if(timeout1++ > timeoutVal){
 			stopwatchEna = 0;
 			task_errordis(1, "Button START/STOP Error");
@@ -49,9 +73,9 @@ void task_mulai(void){
 	}
 	if (bouncing1==3){
 		stopwatchEna = !(stopwatchEna);
-		task_display(stopwatchEna);
+		task_display(0);
 	}
-	if (tekan_Reset){
+	if (HAL_GPIO_ReadPin(Button_RESET_GPIO_Port, Button_RESET_Pin)==GPIO_PIN_RESET){
 		if(timeout2++ > timeoutVal){
 			stopwatchEna = 0;
 			task_errordis(1, "Button Reset Error");
@@ -75,7 +99,7 @@ void task_mulai(void){
 			if (timeout3++ > timeoutVal){
 				stopwatchEna = 0;
 				LCD_clear(0, 0);
-				task_errordis(1, "Sens 1 Error");
+				task_errordis(1, "Sensor 1 Error");
 			}
 			else
 				bouncing3 = (bouncing3<<1)|1;
@@ -90,10 +114,7 @@ void task_mulai(void){
 			milisecondA[lap_1] = miliSecond;
 			secondA[lap_1] = second;
 			minuteA[lap_1] = minute;
-			task_display(1);
-			LCD_SetCursor(4, 1);
-			LCD_printnum(milisecondA[lap_1]); LCD_print(" :");
-			LCD_printnum(secondA[lap_1]);
+			task_display(stopwatchEna);
 			for(uint8_t i=1; i<=4 ; i++){
 				task_LED(i, 1);
 			}
@@ -129,7 +150,7 @@ void task_mulai(void){
 			if(timeout5++ > timeoutVal){
 				stopwatchEna=0;
 				LCD_clear(0, 0);
-				task_errordis(1, "Seomsor 3 Error");
+				task_errordis(1, "Sensor 3 Error");
 			}
 			else
 				bouncing5 = (bouncing5<<1)|1;
@@ -165,23 +186,18 @@ void task_displayreset(void){
 	}
 }
 
-void task_display(uint8_t sesi){
-	switch (sesi) {
-		case 1:
-			//format LCD1
-			LCD_clear(0, 0);
-			LCD_SetCursor(0,1);
-			LCD_print("A");
-			LCD_SetCursor(0,2);
-			LCD_print("B");
-			LCD_SetCursor(0,3);
-			LCD_print("C");
-			LCD_SetCursor(4,0);
-			LCD_print("LAP 1");
-			break;
-		default:
-			break;
+void task_display(_Bool state){
+	if (state){
+		LCD_SetCursor(0,0); LCD_print("Time : ");
+		LCD_SetCursor(0, 1); LCD_print("A :"); LCD_printnum(lap_1);
+		LCD_SetCursor(0, 2); LCD_print("B :"); LCD_printnum(lap_2);
+		LCD_SetCursor(0, 3); LCD_print("C :"); LCD_printnum(lap_3);
+		LCD_SetCursor(8, 1); LCD_printnum(secondA[lap_1]); LCD_print(":"); LCD_printnum(milisecondA[lap_1]);
+		LCD_SetCursor(8, 2); LCD_printnum(secondB[lap_2]); LCD_print(":"); LCD_printnum(milisecondB[lap_2]);
+		LCD_SetCursor(8, 3); LCD_printnum(secondC[lap_3]); LCD_print(":"); LCD_printnum(milisecondC[lap_3]);
+
 	}
+
 }
 
 void task_LED(uint8_t Dled, uint8_t slot){

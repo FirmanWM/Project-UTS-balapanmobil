@@ -26,7 +26,6 @@
 #include "hardwareinit.h"
 #include "usart.h"
 #include "timer.h"
-#include "stopwatch.h"
 #include "LCD_display2.h"
 #include "task.h"
 /* USER CODE END Includes */
@@ -106,14 +105,13 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 
 	task_init();
-	LCD_init();
-	Stopwatch_init();
 	//
-	//	LCD_clear(0, 0);
-	//	LCD_SetCursor(3,1);
-	//	LCD_print("BALAPAN MOBIL");
-	//	LCD_SetCursor(3,2);
-	//	LCD_print("by : FIRMANWM");
+	//		LCD_init();
+	//		LCD_clear(0, 0);
+	//		LCD_SetCursor(3,1);
+	//		LCD_print("BALAPAN MOBIL");
+	//		LCD_SetCursor(3,2);
+	//		LCD_print("by : FIRMANWM");
 	//	HAL_Delay(3000);
 	//	//Format Tampilan LCD 1
 	//	LCD_clear(0,0);
@@ -158,6 +156,14 @@ int main(void)
 	while (1)
 	{
 		//task_mulai();
+		if (HAL_GPIO_ReadPin(Button_StartStop_GPIO_Port, Button_StartStop_Pin)==GPIO_PIN_SET){
+			LCD_SetCursor(0, 0);
+			LCD_print("button bisa");
+		}
+		else {
+			LCD_SetCursor(0, 3);
+			LCD_print("button tidak bisa");
+		}
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */

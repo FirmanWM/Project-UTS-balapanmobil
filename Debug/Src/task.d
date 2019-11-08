@@ -23,8 +23,7 @@ Src/task.o: ../Src/task.c ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h ../Inc/task.h \
- ../Inc/stopwatch.h ../Inc/LCD_display2.h ../Inc/main.h \
- ../Inc/hardwareinit.h
+ ../Inc/LCD_display2.h ../Inc/main.h ../Inc/hardwareinit.h
 
 ../Inc/main.h:
 
@@ -77,8 +76,6 @@ Src/task.o: ../Src/task.c ../Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
 ../Inc/task.h:
-
-../Inc/stopwatch.h:
 
 ../Inc/LCD_display2.h:
 
