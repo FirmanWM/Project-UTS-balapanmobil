@@ -209,6 +209,9 @@ void TIM2_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
   task_mulai();
+  Stopwatch();
+//  HAL_GPIO_WritePin(ENA1_LAP_GPIO_Port, ENA1_LAP_Pin, GPIO_PIN_SET);
+//  HAL_GPIO_TogglePin(D0_LAP_GPIO_Port, D0_LAP_Pin);
   /* USER CODE END TIM2_IRQn 1 */
 }
 

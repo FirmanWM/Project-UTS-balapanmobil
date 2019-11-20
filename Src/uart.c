@@ -14,8 +14,7 @@
 
 
 void uart_printdata(char *pdata){
-	HAL_UART_Transmit(&huart1, (uint8_t *)pdata, strlen(pdata), 10);
-}
+	HAL_UART_Transmit(&huart1, (uint8_t *)pdata, strlen(pdata), 10);}
 void uart_println(char *pdata){
 	HAL_UART_Transmit(&huart1, (uint8_t *)pdata, strlen(pdata), 10);
 	char barisbaru[2] = "\r\n";

@@ -8,6 +8,7 @@
 #include "stm32f1xx_it.h"
 #include "main.h"
 #include "usart.h"
+#include "uart.h"
 
 void MX_USART1_UART_Init(void)
 {

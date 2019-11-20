@@ -16,6 +16,8 @@ void MX_TIM3_Init();
 void MX_USART1_UART_Init();
 
 
+
+
 #define tekan_SS 			HAL_GPIO_ReadPin(Button_StartStop_GPIO_Port, Button_StartStop_Pin)==GPIO_PIN_RESET
 #define tekan_Reset			HAL_GPIO_ReadPin(Button_RESET_GPIO_Port, Button_RESET_Pin)==GPIO_PIN_RESET
 

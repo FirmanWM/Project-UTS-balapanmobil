@@ -103,50 +103,7 @@ int main(void)
 	MX_TIM3_Init();
 	MX_USART1_UART_Init();
 	/* USER CODE BEGIN 2 */
-
-	task_init();
-	//
-	//		LCD_init();
-	//		LCD_clear(0, 0);
-	//		LCD_SetCursor(3,1);
-	//		LCD_print("BALAPAN MOBIL");
-	//		LCD_SetCursor(3,2);
-	//		LCD_print("by : FIRMANWM");
-	//	HAL_Delay(3000);
-	//	//Format Tampilan LCD 1
-	//	LCD_clear(0,0);
-	//	LCD_SetCursor(2,0);
-	//	LCD_print("LAP1");
-	//	LCD_SetCursor(8,0);
-	//	LCD_print("LAP2");
-	//	LCD_SetCursor(14,0);
-	//	LCD_print("LAP3");
-	//	LCD_SetCursor(0,1);
-	//	LCD_print("A");
-	//	LCD_SetCursor(0,2);
-	//	LCD_print("B");
-	//	LCD_SetCursor(0,3);
-	//	LCD_print("C");
-	//	HAL_Delay(3000);
-	//	//Format Tampilan LCD 2
-	//	LCD_clear(0,0);
-	//	LCD_SetCursor(2,0);
-	//	LCD_print("LAP4");
-	//	LCD_SetCursor(8,0);
-	//	LCD_print("JUARA");
-	//	LCD_SetCursor(0,1);
-	//	LCD_print("A");
-	//	LCD_SetCursor(0,2);
-	//	LCD_print("B");
-	//	LCD_SetCursor(0,3);
-	//	LCD_print("C");
-	//	HAL_Delay(3000);
-	//
-	//	LCD_clear(0, 0);
-	//	LCD_SetCursor(3,1);
-	//	LCD_print("BALAPAN MOBIL");
-	//	LCD_SetCursor(3,2);
-	//	LCD_print("by : FIRMANWM")
+	LCD_init();
 
 	HAL_TIM_Base_Start_IT(&htim2);
 	/* USER CODE END 2 */
@@ -156,16 +113,17 @@ int main(void)
 	while (1)
 	{
 		//task_mulai();
-		if (HAL_GPIO_ReadPin(Button_StartStop_GPIO_Port, Button_StartStop_Pin)==GPIO_PIN_SET){
-			LCD_SetCursor(0, 0);
-			LCD_print("button bisa");
-		}
-		else {
-			LCD_SetCursor(0, 3);
-			LCD_print("button tidak bisa");
-		}
+		//		if (HAL_GPIO_ReadPin(Button_StartStop_GPIO_Port, Button_StartStop_Pin)==GPIO_PIN_SET){
+		//			LCD_SetCursor(0, 0);
+		//			LCD_print("button bisa");
+		//		}
+		//		else {
+		//			LCD_SetCursor(0, 3);
+		//			LCD_print("button tidak bisa");
+		//		}
 		/* USER CODE END WHILE */
-
+//		LCD_SetCursor(0, 0);
+//		LCD_print("NAGA");
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */

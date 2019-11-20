@@ -1,8 +1,8 @@
-task.c:30:6:task_init	8	static
-task.c:37:6:Stopwatch	4	static
-task.c:50:6:Stopwatch_Reset	16	static
-task.c:61:6:task_mulai	16	static
-task.c:177:6:task_errordis	16	static
-task.c:182:6:task_displayreset	8	static
-task.c:189:6:task_display	16	static
-task.c:203:6:task_LED	16	static
+task.c:34:6:task_init	8	static
+task.c:46:6:Stopwatch	4	static
+task.c:59:6:Stopwatch_Reset	16	static
+task.c:70:6:task_mulai	8	static
+task.c:193:6:task_errordis	16	static
+task.c:199:6:task_displayreset	8	static
+task.c:211:6:task_display	16	static
+task.c:237:6:task_LED	16	static

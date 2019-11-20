@@ -25,7 +25,7 @@ void LCD_send(_Bool mode, uint8_t data){
 	E_LCD();
 
 }
-void LCD_clear(uint8_t x, uint8_t y){
+void LCD_clear(void){
 	LCD_Commend(0x01);
 }
 void LCD_init(void){
